@@ -27,5 +27,3 @@ class Board
     end
   end
 end
-
-Board.new.show
