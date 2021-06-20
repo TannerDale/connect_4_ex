@@ -6,7 +6,6 @@ class Board
     @row_count = 6
     @column_count = 7
     @board = []
-    @headers = ("A".."Z").to_a.take(@column_count).join
     create
   end
 
@@ -22,7 +21,6 @@ class Board
   end
 
   def show
-    puts @headers
     @board.map do |row|
       puts row.join
     end
