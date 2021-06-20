@@ -1,22 +1,22 @@
 class Board
-  attr_reader :rows, :columns
+  attr_reader :row_count, :column_count
   attr_accessor :board
 
   def initialize
-    @rows = 6
-    @columns = 7
+    @row_count = 6
+    @column_count = 7
     @board = []
-    @headers = ("A".."Z").to_a.take(@columns).join
+    @headers = ("A".."Z").to_a.take(@column_count).join
     create
   end
 
   def create
     default_row = []
-    @columns.times do
+    @column_count.times do
       default_row << "."
     end
 
-    @rows.times do
+    @row_count.times do
       @board << default_row
     end
   end
