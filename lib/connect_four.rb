@@ -5,7 +5,7 @@ class ConnectFour
 
   def initialize
     @board = Board.new
-    @headers = ("A".."Z").to_a.take(@board.column_count).join
+    @headers = ("A".."Z").to_a.take(7).join
     @column_y_height = {}
     @pieces = {
       user: "X",
@@ -15,7 +15,7 @@ class ConnectFour
 
   def start
     @headers.chars.each do |letter|
-      @column_y_height[letter] = 0
+      @column_y_height[letter] = 5
     end
 
     puts "Welcome to Connect Four!"
@@ -40,8 +40,8 @@ class ConnectFour
 
   def place_piece(move, player)
     column = @headers.index(move)
-    row = @board.row_count - @column_y_height[move]
-    @column_y_height[move] += 1
+    row = @column_y_height[move]
+    @column_y_height[move] -= 1
 
     @board.board[row][column] = @pieces[player]
   end
@@ -53,3 +53,8 @@ class ConnectFour
 end
 
 game = ConnectFour.new
+
+game.start
+game.show_board
+game.user_turn
+game.show_board
