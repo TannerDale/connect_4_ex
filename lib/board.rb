@@ -5,23 +5,19 @@ class Board
   def initialize
     @row_count = 6
     @column_count = 7
-    @board = []
-    create
+    @board = create
   end
 
   def create
-    default_row = []
+    the_board = []
     @column_count.times do
-      default_row << "."
+      the_board << %w(. . . . . . .)
     end
-
-    @row_count.times do
-      @board << default_row
-    end
+    the_board
   end
 
   def show
-    @board.map do |row|
+    @board.each do |row|
       puts row.join
     end
   end
