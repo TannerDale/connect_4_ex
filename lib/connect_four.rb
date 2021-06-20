@@ -1,8 +1,6 @@
 require './lib/board'
 
 class ConnectFour
-  attr_reader :board
-
   def initialize
     @board = Board.new
     @headers = ("A".."Z").to_a.take(7).join
@@ -24,6 +22,10 @@ class ConnectFour
     puts ""
   end
 
+  def main_loop
+    start
+  end
+
   def user_turn
     puts "Which column do you want to place your piece in?"
     print "-> "
@@ -38,6 +40,12 @@ class ConnectFour
     place_piece(user_move.upcase, :user)
   end
 
+  def computer_turn
+    computer_move = @headers.chars.sample
+
+    place_piece(computer_move, :computer)
+  end
+
   def place_piece(move, player)
     column = @headers.index(move)
     row = @column_y_height[move]
@@ -50,11 +58,11 @@ class ConnectFour
     puts @headers
     @board.show
   end
+
+  def winner?(y, x, player)
+  end
 end
 
 game = ConnectFour.new
 
-game.start
-game.show_board
-game.user_turn
-game.show_board
+game.main_loop
