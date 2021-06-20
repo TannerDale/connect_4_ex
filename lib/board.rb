@@ -1,4 +1,5 @@
 class Board
+  attr_reader :rows, :columns
   attr_accessor :board
 
   def initialize
