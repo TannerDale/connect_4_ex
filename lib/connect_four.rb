@@ -95,8 +95,9 @@ class ConnectFour
       return true
     end
 
-    # vertical
     if row <= 2
+
+      # vertical
       in_a_row = @board.board.count do |rows|
         rows[column] == @pieces[player] && @board.board[row + 1][column] == @pieces[player]
       end
@@ -125,7 +126,7 @@ class ConnectFour
 
       return true if consecutive >= 4
 
-      # diagonal bot left to top right
+      # diagonal bot right to top left
       y = row
       x = column
       consecutive = 0
