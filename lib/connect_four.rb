@@ -11,6 +11,10 @@ class ConnectFour
     }
   end
 
+  def play
+    main_loop
+  end
+
   def start
     @headers.chars.each do |letter|
       @column_y_height[letter] = 5
@@ -72,6 +76,7 @@ class ConnectFour
   def place_piece(move, player)
     column = @headers.index(move)
     row = @column_y_height[move]
+
     @column_y_height[move] -= 1
 
     @board.board[row][column] = @pieces[player]
@@ -146,6 +151,4 @@ class ConnectFour
   end
 end
 
-game = ConnectFour.new
-
-game.main_loop
+ConnectFour.new.play
