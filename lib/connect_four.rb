@@ -58,8 +58,8 @@ class ConnectFour
     print "-> "
 
     user_move = gets.chomp
-    while !@headers.include?(user_move.upcase)
-      puts "Invalid Column, please choose from #{@headers}."
+    while !@headers.include?(user_move.upcase) || @column_y_height[user_move.upcase] < 0
+      puts "Invalid position, please choose another move."
       print "-> "
       user_move = gets.chomp
     end
@@ -98,7 +98,8 @@ class ConnectFour
     # vertical
     if row <= 2
       in_a_row = @board.board.count do |rows|
-          rows[column] == @pieces[player] && @board.board[row + 1][column] == @pieces[player]
+          rows[column] == @pieces[player] && @board.board[row + 1][column] == @pieces[player] &&
+          @board.board[row - 1][column] == @pieces[player]
       end
 
       return true if in_a_row == 4
