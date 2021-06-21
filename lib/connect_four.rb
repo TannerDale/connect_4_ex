@@ -6,7 +6,7 @@ class ConnectFour
     @headers = ("A".."Z").to_a.take(7).join
     @column_y_height = {}
     @pieces = {
-      user: "X",
+      player: "X",
       computer: "O",
       player_1: "X",
       player_2: "O"
@@ -15,7 +15,6 @@ class ConnectFour
 
   def play
     start
-    multi_player_loop
   end
 
   def start
@@ -23,13 +22,34 @@ class ConnectFour
       @column_y_height[letter] = 5
     end
 
+    player_count = how_many_players
+
+    if player_count == "1"
+      single_player_loop
+    else
+      multi_player_loop
+    end
+  end
+
+  def how_many_players
     puts "Welcome to Connect Four!"
-    puts "You will be playing as 'X'. The computer will be 'O'."
-    puts "When prompted, select which column you would like to place your piece."
-    puts ""
+    puts "Select game type."
+    puts "1) Single player vs. computer\n2) Mulitplayer"
+    print "-> "
+    player_count = gets.chomp
+    puts player_count
+    while player_count != "1" && player_count != "2"
+      puts "Please select (1) for single player or (2) for multiplayer."
+      print "-> "
+      player_count = gets.chomp
+    end
+    player_count
   end
 
   def multi_player_loop
+    puts "Player 1 is 'X', Player 2 is 'O'."
+    puts "When prompted, select which column you would like to place your piece."
+    puts ""
     show_board
 
     loop do
@@ -56,6 +76,9 @@ class ConnectFour
   end
 
   def single_player_loop
+    puts "You will be playing as 'X'. The computer will be 'O'."
+    puts "When prompted, select which column you would like to place your piece."
+    puts ""
     show_board
 
     loop do
@@ -82,7 +105,9 @@ class ConnectFour
   end
 
   def user_turn(player)
-    puts "Which column do you want to place your piece in?"
+    player_name = player.to_s.gsub("_", " ").capitalize
+
+    puts "#{player_name}, which column do you want to place your piece in?"
     print "-> "
 
     user_move = gets.chomp
@@ -102,6 +127,7 @@ class ConnectFour
   end
 
   def place_piece(move, player)
+    p player
     column = @headers.index(move)
     row = @column_y_height[move]
 
@@ -121,17 +147,19 @@ class ConnectFour
     board = @board.board
 
     # horizontal
-    if board[row].each_cons(4).any? { |group| group.all? { |piece| piece == @pieces[player] } }
-      return true
+    horizontal_win = board[row].each_cons(4).any? do |group|
+      group.all? { |piece| piece == @pieces[player] }
     end
+
+    return true if horizontal_win
 
     if row <= 2
       # vertical
-      in_a_row = board.count do |rows|
-        rows[column] == @pieces[player] && board[row + 1][column] == @pieces[player]
+      vertical_win = board.transpose[column].each_cons(4).any? do |group|
+        group.all? { |piece| piece == @pieces[player] }
       end
 
-      return true if in_a_row == 4
+      return true if vertical_win
     end
 
     # diagonal bot left to top right
