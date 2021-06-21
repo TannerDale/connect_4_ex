@@ -60,6 +60,11 @@ class ConnectFour
 
       show_board
 
+      if draw?
+        draw_display
+        break
+      end
+
       player_2_win = user_turn(:player_2)
 
       if player_2_win
@@ -69,6 +74,11 @@ class ConnectFour
       end
 
       show_board
+
+      if draw?
+        draw_display
+        break
+      end
     end
   end
 
@@ -89,6 +99,12 @@ class ConnectFour
       end
 
       show_board
+
+      if draw?
+        draw_display
+        break
+      end
+
       puts ""
       puts "Computers move:"
 
@@ -101,6 +117,11 @@ class ConnectFour
       end
 
       show_board
+
+      if draw?
+        draw_display
+        break
+      end
     end
   end
 
@@ -209,6 +230,14 @@ class ConnectFour
     return true if consecutive >= 4
 
     false
+  end
+
+  def draw?
+    @column_y_height.values.all? { |height| height == 0 }
+  end
+
+  def draw_display
+    puts "It's a draw!"
   end
 end
 
