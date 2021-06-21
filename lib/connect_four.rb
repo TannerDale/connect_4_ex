@@ -7,13 +7,15 @@ class ConnectFour
     @column_y_height = {}
     @pieces = {
       user: "X",
-      computer: "O"
+      computer: "O",
+      player_1: "X",
+      player_2: "O"
     }
   end
 
   def play
     start
-    main_loop
+    multi_player_loop
   end
 
   def start
@@ -27,13 +29,39 @@ class ConnectFour
     puts ""
   end
 
-  def main_loop
+  def multi_player_loop
     show_board
 
     loop do
-      user_win = user_turn
+      user_1_win = user_turn(:player_1)
 
-      if user_win
+      if user_1_win
+        show_board
+        puts "Player 1 wins!"
+        break
+      end
+
+      show_board
+
+      player_2_win = user_turn(:player_2)
+
+      if player_2_win
+        show_board
+        puts "Player 2 wins!"
+        break
+      end
+
+      show_board
+    end
+  end
+
+  def single_player_loop
+    show_board
+
+    loop do
+      player_win = user_turn(:player)
+
+      if player_win
         show_board
         puts "You win!"
         break
@@ -53,7 +81,7 @@ class ConnectFour
     end
   end
 
-  def user_turn
+  def user_turn(player)
     puts "Which column do you want to place your piece in?"
     print "-> "
 
@@ -64,7 +92,7 @@ class ConnectFour
       user_move = gets.chomp
     end
 
-    place_piece(user_move.upcase, :user)
+    place_piece(user_move.upcase, player)
   end
 
   def computer_turn
