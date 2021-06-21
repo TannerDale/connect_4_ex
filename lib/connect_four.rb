@@ -190,7 +190,6 @@ class ConnectFour
 
     return true if consecutive >= 4
 
-
     # diagonal bot right to top left
     y = row
     x = column
