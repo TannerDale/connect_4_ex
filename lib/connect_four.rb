@@ -24,6 +24,29 @@ class ConnectFour
 
   def main_loop
     start
+    show_board
+
+    loop do
+      user_win = user_turn
+
+      if user_win
+        show_board
+        puts "You win!"
+        break
+      end
+
+      show_board
+
+      computer_win = computer_turn
+
+      if computer_win
+        show_board
+        puts "You lost!"
+        break
+      end
+
+      show_board
+    end
   end
 
   def user_turn
@@ -52,6 +75,8 @@ class ConnectFour
     @column_y_height[move] -= 1
 
     @board.board[row][column] = @pieces[player]
+
+    winner?(column, row, player)
   end
 
   def show_board
@@ -59,7 +84,65 @@ class ConnectFour
     @board.show
   end
 
-  def winner?(y, x, player)
+  def winner?(column, row, player)
+    # horizontal
+    if @board.board[row].each_cons(4).any? { |group| group.all? { |piece| piece == @pieces[player] } }
+      return true
+    end
+
+    # vertical
+    if row <= 2
+      in_a_row = @board.board.count do |rows|
+          rows[column] == @pieces[player] && @board.board[row + 1][column] == @pieces[player]
+      end
+
+      return true if in_a_row == 4
+    end
+
+    # diagonal bot left to top right
+    board = @board.board
+    y = row
+    x = column
+    consecutive = 0
+    while board[y] && board[y][x] == @pieces[player]
+      consecutive += 1
+      y += 1
+      x -= 1
+    end
+
+    y = row - 1
+    x = column + 1
+
+    while board[y] && board[y][x] == @pieces[player]
+      consecutive += 1
+      y -= 1
+      x += 1
+    end
+
+    return true if consecutive >= 4
+
+    # diagonal bot left to top right
+    y = row
+    x = column
+    consecutive = 0
+    while board[y] && board[y][x] == @pieces[player]
+      consecutive += 1
+      y += 1
+      x += 1
+    end
+
+    y = row - 1
+    x = column - 1
+
+    while board[y] && board[y][x] == @pieces[player]
+      consecutive += 1
+      y -= 1
+      x -= 1
+    end
+
+    return true if consecutive >= 4
+
+    false
   end
 end
 
