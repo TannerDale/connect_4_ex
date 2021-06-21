@@ -33,19 +33,21 @@ class ConnectFour
   def how_many_players
     puts "Welcome to Connect Four!"
     puts "Select game type."
-    puts "1) Single player vs. computer\n2) Mulitplayer"
+    puts "1) Single player vs. computer\n2) Multiplayer"
     print "-> "
+
     player_count = gets.chomp
-    puts player_count
     while player_count != "1" && player_count != "2"
       puts "Please select (1) for single player or (2) for multiplayer."
       print "-> "
       player_count = gets.chomp
     end
+
     player_count
   end
 
   def multi_player_loop
+    puts ""
     puts "Player 1 is 'X', Player 2 is 'O'."
     puts "When prompted, select which column you would like to place your piece."
     puts ""
@@ -75,6 +77,7 @@ class ConnectFour
   end
 
   def single_player_loop
+    puts ""
     puts "You will be playing as 'X'. The computer will be 'O'."
     puts "When prompted, select which column you would like to place your piece."
     puts ""
@@ -90,6 +93,8 @@ class ConnectFour
       end
 
       show_board
+      puts ""
+      puts "Computers move:"
 
       computer_win = computer_turn
 
