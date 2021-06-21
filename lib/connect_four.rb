@@ -172,16 +172,17 @@ class ConnectFour
     y = row
     x = column
     consecutive = 0
-    while board[y] && board[y][x] == @pieces[player] && x >= 0
+    while board[y] && board[y][x] == @pieces[player]
       consecutive += 1
       y += 1
       x -= 1
+      break if x < 0
     end
 
     y = row - 1
     x = column + 1
 
-    while board[y] && board[y][x] == @pieces[player] && x >= 0
+    while board[y] && board[y][x] == @pieces[player]
       consecutive += 1
       y -= 1
       x += 1
@@ -194,7 +195,7 @@ class ConnectFour
     y = row
     x = column
     consecutive = 0
-    while board[y] && board[y][x] == @pieces[player] && x >= 0
+    while board[y] && board[y][x] == @pieces[player]
       consecutive += 1
       y += 1
       x += 1
@@ -203,10 +204,11 @@ class ConnectFour
     y = row - 1
     x = column - 1
 
-    while board[y] && board[y][x] == @pieces[player] && x >= 0
+    while board[y] && board[y][x] == @pieces[player]
       consecutive += 1
       y -= 1
       x -= 1
+      break if x < 0
     end
 
     return true if consecutive >= 4
