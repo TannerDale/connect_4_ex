@@ -118,22 +118,23 @@ class ConnectFour
   end
 
   def winner?(column, row, player)
+    board = @board.board
+
     # horizontal
-    if @board.board[row].each_cons(4).any? { |group| group.all? { |piece| piece == @pieces[player] } }
+    if board[row].each_cons(4).any? { |group| group.all? { |piece| piece == @pieces[player] } }
       return true
     end
 
     if row <= 2
 
       # vertical
-      in_a_row = @board.board.count do |rows|
-        rows[column] == @pieces[player] && @board.board[row + 1][column] == @pieces[player]
+      in_a_row = board.count do |rows|
+        rows[column] == @pieces[player] && board[row + 1][column] == @pieces[player]
       end
 
       return true if in_a_row == 4
 
       # diagonal bot left to top right
-      board = @board.board
       y = row
       x = column
       consecutive = 0
