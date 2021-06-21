@@ -13,10 +13,6 @@ class ConnectFour
   end
 
   def play
-    start
-  end
-
-  def start
     @headers.chars.each do |letter|
       @column_y_height[letter] = 5
     end
