@@ -176,7 +176,6 @@ class ConnectFour
       consecutive += 1
       y += 1
       x -= 1
-      p [y, x, consecutive]
     end
 
     y = row - 1
