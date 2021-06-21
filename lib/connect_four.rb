@@ -102,50 +102,50 @@ class ConnectFour
       end
 
       return true if in_a_row == 4
+
+      # diagonal bot left to top right
+      board = @board.board
+      y = row
+      x = column
+      consecutive = 0
+      while board[y] && board[y][x] == @pieces[player]
+        consecutive += 1
+        y += 1
+        x -= 1
+      end
+
+      y = row - 1
+      x = column + 1
+
+      while board[y] && board[y][x] == @pieces[player]
+        consecutive += 1
+        y -= 1
+        x += 1
+      end
+
+      return true if consecutive >= 4
+
+      # diagonal bot left to top right
+      y = row
+      x = column
+      consecutive = 0
+      while board[y] && board[y][x] == @pieces[player]
+        consecutive += 1
+        y += 1
+        x += 1
+      end
+
+      y = row - 1
+      x = column - 1
+
+      while board[y] && board[y][x] == @pieces[player]
+        consecutive += 1
+        y -= 1
+        x -= 1
+      end
+
+      return true if consecutive >= 4
     end
-
-    # diagonal bot left to top right
-    board = @board.board
-    y = row
-    x = column
-    consecutive = 0
-    while board[y] && board[y][x] == @pieces[player]
-      consecutive += 1
-      y += 1
-      x -= 1
-    end
-
-    y = row - 1
-    x = column + 1
-
-    while board[y] && board[y][x] == @pieces[player]
-      consecutive += 1
-      y -= 1
-      x += 1
-    end
-
-    return true if consecutive >= 4
-
-    # diagonal bot left to top right
-    y = row
-    x = column
-    consecutive = 0
-    while board[y] && board[y][x] == @pieces[player]
-      consecutive += 1
-      y += 1
-      x += 1
-    end
-
-    y = row - 1
-    x = column - 1
-
-    while board[y] && board[y][x] == @pieces[player]
-      consecutive += 1
-      y -= 1
-      x -= 1
-    end
-
-    return true if consecutive >= 4
 
     false
   end
