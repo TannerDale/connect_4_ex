@@ -126,6 +126,9 @@ class ConnectFour
 
   def computer_turn
     computer_move = @headers.chars.sample
+    while @column_y_height[computer_move] < 0
+      computer_move = @headers.chars.sample
+    end
 
     place_piece(computer_move, :computer)
   end
