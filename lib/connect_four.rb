@@ -6,10 +6,9 @@ class ConnectFour
     @headers = ("A".."Z").to_a.take(7).join
     @column_y_height = {}
     @pieces = {
-      player: "X",
-      computer: "O",
       player_1: "X",
-      player_2: "O"
+      player_2: "O",
+      computer: "O"
     }
   end
 
@@ -82,7 +81,7 @@ class ConnectFour
     show_board
 
     loop do
-      player_win = user_turn(:player)
+      player_win = user_turn(:player_1)
 
       if player_win
         show_board
@@ -127,7 +126,6 @@ class ConnectFour
   end
 
   def place_piece(move, player)
-    p player
     column = @headers.index(move)
     row = @column_y_height[move]
 
