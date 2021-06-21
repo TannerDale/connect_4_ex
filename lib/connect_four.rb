@@ -159,8 +159,8 @@ class ConnectFour
 
     return true if horizontal_win
 
+    # vertical
     if row <= 2
-      # vertical
       vertical_win = board.transpose[column].each_cons(4).any? do |group|
         group.all? { |piece| piece == @pieces[player] }
       end
@@ -172,16 +172,17 @@ class ConnectFour
     y = row
     x = column
     consecutive = 0
-    while board[y] && board[y][x] == @pieces[player]
+    while board[y] && board[y][x] == @pieces[player] && x >= 0
       consecutive += 1
       y += 1
       x -= 1
+      p [y, x, consecutive]
     end
 
     y = row - 1
     x = column + 1
 
-    while board[y] && board[y][x] == @pieces[player]
+    while board[y] && board[y][x] == @pieces[player] && x >= 0
       consecutive += 1
       y -= 1
       x += 1
@@ -189,11 +190,12 @@ class ConnectFour
 
     return true if consecutive >= 4
 
+
     # diagonal bot right to top left
     y = row
     x = column
     consecutive = 0
-    while board[y] && board[y][x] == @pieces[player]
+    while board[y] && board[y][x] == @pieces[player] && x >= 0
       consecutive += 1
       y += 1
       x += 1
@@ -202,14 +204,13 @@ class ConnectFour
     y = row - 1
     x = column - 1
 
-    while board[y] && board[y][x] == @pieces[player]
+    while board[y] && board[y][x] == @pieces[player] && x >= 0
       consecutive += 1
       y -= 1
       x -= 1
     end
 
     return true if consecutive >= 4
-
 
     false
   end
