@@ -12,6 +12,7 @@ class ConnectFour
   end
 
   def play
+    start
     main_loop
   end
 
@@ -27,7 +28,6 @@ class ConnectFour
   end
 
   def main_loop
-    start
     show_board
 
     loop do
